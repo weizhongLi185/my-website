@@ -1,32 +1,84 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <title>我的第一個網站</title>
-  <style>
-    body {
-      font-family: Arial;
-      text-align: center;
-      background: #f2f2f2;
-      margin-top: 100px;
-    }
-    h1 {
-      color: #333;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>股票損益計算器</title>
+
+<style>
+body{
+    font-family:Arial;
+    text-align:center;
+    margin-top:50px;
+}
+
+input{
+    margin:5px;
+    padding:8px;
+}
+
+button{
+    padding:10px 20px;
+}
+
+#result{
+    margin-top:20px;
+    font-size:20px;
+}
+</style>
 </head>
 
 <body>
-  <h1>你好，這是我的網站 👋</h1>
-  <p>這是一個用 HTML 做出來的網頁</p>
 
-  <button onclick="alert('你按了按鈕！')">
-    點我看看
-  </button>
+<h1>股票損益計算器</h1>
+
+<input id="buy" type="number" placeholder="買入價格"><br>
+
+<input id="sell" type="number" placeholder="賣出價格"><br>
+
+<input id="qty" type="number" placeholder="股數"><br>
+
+<button onclick="calculate()">
+計算
+</button>
+
+<div id="result"></div>
+
+<script>
+
+function calculate(){
+
+    let buy =
+    parseFloat(document.getElementById("buy").value);
+
+    let sell =
+    parseFloat(document.getElementById("sell").value);
+
+    let qty =
+    parseInt(document.getElementById("qty").value);
+
+    let buyAmount = buy * qty;
+    let sellAmount = sell * qty;
+
+    let buyFee =
+    Math.floor(buyAmount * 0.001425);
+
+    let sellFee =
+    Math.floor(sellAmount * 0.001425);
+
+    let tax =
+    Math.floor(sellAmount * 0.003);
+
+    let profit =
+    sellAmount - sellFee - tax
+    - buyAmount - buyFee;
+
+    document.getElementById("result")
+    .innerHTML =
+    "損益：" + profit.toFixed(0) + " 元";
+
+}
+
+</script>
+
 </body>
 </html>
